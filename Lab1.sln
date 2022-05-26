@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EHealth.WebApi", "EHealth.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EHealth.ConsoleApp", "EHealth.ConsoleApp\EHealth.ConsoleApp.csproj", "{BB29036E-0712-447D-B578-18FAC646D09D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHealth.Services", "EHealth.Services\EHealth.Services.csproj", "{518FB9EC-520E-4575-86D3-CE8CD8D9DDBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHealth.Model", "EHealth.Model\EHealth.Model.csproj", "{A0F987A1-59FF-4A95-AC83-19C0802F126E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{BB29036E-0712-447D-B578-18FAC646D09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB29036E-0712-447D-B578-18FAC646D09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB29036E-0712-447D-B578-18FAC646D09D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{518FB9EC-520E-4575-86D3-CE8CD8D9DDBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{518FB9EC-520E-4575-86D3-CE8CD8D9DDBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{518FB9EC-520E-4575-86D3-CE8CD8D9DDBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{518FB9EC-520E-4575-86D3-CE8CD8D9DDBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0F987A1-59FF-4A95-AC83-19C0802F126E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0F987A1-59FF-4A95-AC83-19C0802F126E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0F987A1-59FF-4A95-AC83-19C0802F126E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0F987A1-59FF-4A95-AC83-19C0802F126E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
