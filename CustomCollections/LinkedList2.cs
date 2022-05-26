@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CustomCollections
 {
+    [ExcludeFromCodeCoverage]
     public class LinkedList2<T> : IReadOnlyCollection<T>, ICollection<T>, IEnumerable<T>, IEnumerable, ICloneable
     {
         public LinkedList2()
@@ -339,6 +341,7 @@ namespace CustomCollections
         }
     }
 
+    [ExcludeFromCodeCoverage]
     public sealed class LinkedListNode2<T>
     {
         private T value;

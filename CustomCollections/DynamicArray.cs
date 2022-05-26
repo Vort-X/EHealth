@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CustomCollections
 {
@@ -23,7 +24,12 @@ namespace CustomCollections
         {
             if (collection is DynamicArray<T>)
             {
-                vector = GetType().GetField(nameof(vector)).GetValue(collection) as T[];
+                var array = collection as DynamicArray<T>;
+                vector = new T[array.Capacity];
+                for (int i = 0; i < array.Capacity; i++)
+                {
+                    this[i] = array[i];
+                }
             }
             else
             {
@@ -118,9 +124,10 @@ namespace CustomCollections
                 ItemAdded?.Invoke(this, new () { Index = i, Item = item });
                 return;
             };
-            Extend(Capacity);
-            vector[Capacity] = item;
-            ItemAdded?.Invoke(this, new () { Index = Capacity, Item = item });
+            int newIndex = Capacity;
+            Extend(newIndex);
+            vector[newIndex] = item;
+            ItemAdded?.Invoke(this, new () { Index = newIndex, Item = item });
         }
 
         public void Clear()
@@ -219,6 +226,7 @@ namespace CustomCollections
         #endregion
 
         #region NestedClasses
+        [ExcludeFromCodeCoverage]
         public class EventArgs
         {
             public int Index { get; init; }
