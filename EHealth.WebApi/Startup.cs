@@ -1,5 +1,7 @@
 using EHealth.Identity;
 using EHealth.Identity.Default;
+using EHealth.Services;
+using EHealth.Services.Default;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,6 +60,9 @@ namespace EHealth.WebApi
                 };
             });
             services.AddScoped<IIdentityService<ApplicationUser>, DefaultIdentityService>();
+
+            services.AddScoped<IDoctorsService, DefaultDoctorsService>();
+            services.AddScoped<IAppointmentService, DefaultAppointmentService>();
 
             services.AddSwaggerGen(c =>
             {

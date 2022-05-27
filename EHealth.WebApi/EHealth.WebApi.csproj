@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EHealth.Identity.Default\EHealth.Identity.Default.csproj" />
     <ProjectReference Include="..\EHealth.Identity\EHealth.Identity.csproj" />
+    <ProjectReference Include="..\EHealth.Services.Default\EHealth.Services.Default.csproj" />
     <ProjectReference Include="..\EHealth.Services\EHealth.Services.csproj" />
   </ItemGroup>
 
