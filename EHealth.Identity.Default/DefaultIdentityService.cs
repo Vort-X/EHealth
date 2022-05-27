@@ -113,6 +113,12 @@ namespace EHealth.Identity.Default
             };
         }
 
+        public async Task<string> GetFullName(string userName)
+        {
+            var user = await userManager.FindByNameAsync(userName);
+            return user.FullName;
+        }
+
         public async Task<(bool, ApplicationUser)> TryLoginAsync(string userName, string password)
         {
             var user = await userManager.FindByNameAsync(userName);

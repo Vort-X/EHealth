@@ -9,6 +9,7 @@ namespace EHealth.Identity
         Task<bool> EnsureRoleExistsAsync(string role);
         Task<string> GenerateTokenAsync(TUser user);
         Task<TUser> GenerateUserAsync();
+        Task<string> GetFullName(string userName);
         Task<(bool, TUser)> TryLoginAsync(string userName, string password);
     }
 }
