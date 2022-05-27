@@ -1,3 +1,4 @@
+using EHealth.Identity;
 using EHealth.WebApi.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +57,7 @@ namespace EHealth.WebApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"])),
                 };
             });
+            services.AddScoped<IIdentityService<ApplicationUser>, DefaultIdentityService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EHealth.Services;
+using EHealth.WebApi.Mappers;
+using EHealth.WebApi.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,20 +14,27 @@ namespace EHealth.WebApi.Controllers
     [ApiController]
     public class DoctorsController : ControllerBase
     {
+        private readonly IDoctorsService doctorsService;
+
+        public DoctorsController(IDoctorsService doctorsService)
+        {
+            this.doctorsService = doctorsService;
+        }
+
         [HttpGet]
         [Route("get-doctors")]
-        public async Task<IEnumerable<object>> GetDoctorsList()
+        public async Task<IEnumerable<DoctorViewModel>> GetDoctorsList()
         {
-            await Task.CompletedTask;
-            return Array.Empty<object>();
+            var doctorsList = await doctorsService.GetDoctorsListAsync();
+            return doctorsList.Select(d => d.ToViewModel());
         }
 
         [HttpGet]
         [Route("get-doctor/{id}")]
-        public async Task<object> GetDoctor(int id)
+        public async Task<DoctorViewModel> GetDoctor(int id)
         {
-            await Task.CompletedTask;
-            return null;
+            var doctor = await doctorsService.GetDoctorAsync(id);
+            return doctor.ToViewModel();
         }
     }
 }

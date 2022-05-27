@@ -1,6 +1,10 @@
-﻿using EHealth.WebApi.Identity;
+﻿using EHealth.Services;
+using EHealth.WebApi.Identity;
+using EHealth.WebApi.Mappers;
+using EHealth.WebApi.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,20 +18,31 @@ namespace EHealth.WebApi.Controllers
     [Authorize(Roles = UserRoles.User)]
     public class AppointmentController : ControllerBase
     {
-        [HttpGet]
-        [Route("get-history/{id}")]
-        public async Task<IEnumerable<object>> GetHistory(int id)
+        private readonly IAppointmentService appointmentService;
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public AppointmentController(IAppointmentService appointmentService, UserManager<ApplicationUser> userManager)
         {
-            await Task.CompletedTask;
-            return Array.Empty<object>();
+            this.appointmentService = appointmentService;
+            this.userManager = userManager;
+        }
+
+        [HttpGet]
+        [Route("get-history")]
+        public async Task<IEnumerable<HistoryViewModel>> GetHistory()
+        {
+            var user = await userManager.GetUserAsync(User);
+            var history = await appointmentService.GetHistoryForPatientAsync(user.FullName);
+            return history.Select(h => h.ToViewModel());
         }
 
         [HttpPost]
         [Route("schedule")]
-        public async Task<bool> Schedule(object scheduleViewModel)
+        public async Task<bool> Schedule(AppointmentViewModel scheduleViewModel)
         {
-            await Task.CompletedTask;
-            return true;
+            var user = await userManager.GetUserAsync(User);
+            var isScheduled = await appointmentService.ScheduleAppointmentAsync(scheduleViewModel.ToModel(user.FullName));
+            return isScheduled;
         }
     }
 }
