@@ -1,5 +1,5 @@
 using EHealth.Identity;
-using EHealth.WebApi.Identity;
+using EHealth.Identity.Default;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

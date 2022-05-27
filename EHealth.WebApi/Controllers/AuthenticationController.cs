@@ -1,5 +1,5 @@
 ﻿using EHealth.Identity;
-using EHealth.WebApi.Identity;
+using EHealth.Identity.Default;
 using EHealth.WebApi.ViewModel.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

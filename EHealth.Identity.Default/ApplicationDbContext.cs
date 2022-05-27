@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-namespace EHealth.WebApi.Identity
+namespace EHealth.Identity.Default
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

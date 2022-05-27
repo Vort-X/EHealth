@@ -1,12 +1,10 @@
-﻿using EHealth.Services;
-using EHealth.WebApi.Identity;
+﻿using EHealth.Identity.Default;
+using EHealth.Services;
 using EHealth.WebApi.Mappers;
 using EHealth.WebApi.ViewModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

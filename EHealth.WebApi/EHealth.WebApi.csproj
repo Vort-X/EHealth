@@ -12,8 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EHealth.Identity.Default\EHealth.Identity.Default.csproj" />
     <ProjectReference Include="..\EHealth.Identity\EHealth.Identity.csproj" />
     <ProjectReference Include="..\EHealth.Services\EHealth.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Identity\" />
   </ItemGroup>
 
 </Project>
