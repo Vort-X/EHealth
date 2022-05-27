@@ -1,9 +1,8 @@
-﻿using EHealth.Identity.Default;
+﻿using EHealth.Identity;
 using EHealth.Services;
 using EHealth.WebApi.Mappers;
 using EHealth.WebApi.ViewModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +16,20 @@ namespace EHealth.WebApi.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService appointmentService;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IIdentityService<ApplicationUser> identityService;
 
-        public AppointmentController(IAppointmentService appointmentService, UserManager<ApplicationUser> userManager)
+        public AppointmentController(IAppointmentService appointmentService, IIdentityService<ApplicationUser> identityService)
         {
             this.appointmentService = appointmentService;
-            this.userManager = userManager;
+            this.identityService = identityService;
         }
 
         [HttpGet]
         [Route("get-history")]
         public async Task<IEnumerable<HistoryViewModel>> GetHistory()
         {
-            var user = await userManager.GetUserAsync(User);
-            var history = await appointmentService.GetHistoryForPatientAsync(user.FullName);
+            var patientName = await identityService.GetFullName(User.Identity.Name);
+            var history = await appointmentService.GetHistoryForPatientAsync(patientName);
             return history.Select(h => h.ToViewModel());
         }
 
@@ -38,8 +37,8 @@ namespace EHealth.WebApi.Controllers
         [Route("schedule")]
         public async Task<bool> Schedule(AppointmentViewModel scheduleViewModel)
         {
-            var user = await userManager.GetUserAsync(User);
-            var isScheduled = await appointmentService.ScheduleAppointmentAsync(scheduleViewModel.ToModel(user.FullName));
+            var patientName = await identityService.GetFullName(User.Identity.Name);
+            var isScheduled = await appointmentService.ScheduleAppointmentAsync(scheduleViewModel.ToModel(patientName));
             return isScheduled;
         }
     }

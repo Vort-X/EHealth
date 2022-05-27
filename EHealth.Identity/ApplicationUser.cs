@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace EHealth.Identity.Default
+namespace EHealth.Identity
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,4 +1,4 @@
-﻿namespace EHealth.Identity.Default
+﻿namespace EHealth.Identity
 {
     public static class UserRoles
     {
