@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EHealth.Identity\EHealth.Identity.csproj" />
     <ProjectReference Include="..\EHealth.Services\EHealth.Services.csproj" />
   </ItemGroup>
 
