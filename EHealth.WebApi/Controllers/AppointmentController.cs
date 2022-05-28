@@ -28,7 +28,7 @@ namespace EHealth.WebApi.Controllers
         [Route("get-history")]
         public async Task<IEnumerable<HistoryViewModel>> GetHistory()
         {
-            var patientName = await identityService.GetFullName(User.Identity.Name);
+            var patientName = await identityService.GetFullName(User?.Identity?.Name);
             var history = await appointmentService.GetHistoryForPatientAsync(patientName);
             var historyViewModel = history.Select(h => h.ToViewModel());
 
@@ -39,7 +39,7 @@ namespace EHealth.WebApi.Controllers
         [Route("schedule")]
         public async Task<bool> Schedule(AppointmentViewModel scheduleViewModel)
         {
-            var patientName = await identityService.GetFullName(User.Identity.Name);
+            var patientName = await identityService.GetFullName(User?.Identity?.Name);
             var appointmentModel = scheduleViewModel.ToModel(patientName);
             var isScheduled = await appointmentService.ScheduleAppointmentAsync(appointmentModel);
 

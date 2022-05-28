@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EHealth.Services.Stub
+namespace EHealth.Services
 {
     public class StubAppointmentService : IAppointmentService
     {
