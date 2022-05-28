@@ -2,7 +2,7 @@
 
 namespace EHealth.Identity
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IAuthorizable
     {
         public string FullName { get; set; }
     }
