@@ -59,7 +59,7 @@ namespace EHealth.WebApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"])),
                 };
             });
-            services.AddScoped<IIdentityService<ApplicationUser>, DefaultIdentityService>();
+            services.AddScoped<IIdentityService<IAuthorizable>, DefaultIdentityService>();
 
             services.AddScoped<IDoctorsService, DefaultDoctorsService>();
             services.AddScoped<IAppointmentService, DefaultAppointmentService>();

@@ -30,8 +30,13 @@ namespace EHealth.Identity.Default
 
         private const string defaultRole = UserRoles.User;
 
-        public async Task<bool> CreateUserAsync(ApplicationUser user, string password)
+        public async Task<bool> RegisterAsync(Action<ApplicationUser> setRegistration, string password)
         {
+            ApplicationUser user = new()
+            {
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            setRegistration(user);
             var existingUser = await userManager.FindByNameAsync(user.UserName);
             if (existingUser is not null)
             {
@@ -70,15 +75,21 @@ namespace EHealth.Identity.Default
             return createResult.Succeeded;
         }
 
-        public async Task<string> GenerateTokenAsync(ApplicationUser user)
+        public async Task<string> GenerateTokenAsync(string userName)
         {
+            var user = await userManager.FindByNameAsync(userName);
+            if (user is null)
+            {
+                return string.Empty;
+            }
+
             var authClaims = (await userManager.GetRolesAsync(user))
                 .Select(async ur => await roleManager.FindByNameAsync(ur))
                 .Select(async ir => await roleManager.GetClaimsAsync(await ir))
                 .SelectMany(cl => cl.Result)
                 .Union(new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Name, userName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 });
 
@@ -104,28 +115,16 @@ namespace EHealth.Identity.Default
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<ApplicationUser> GenerateUserAsync()
-        {
-            await Task.CompletedTask;
-            return new ApplicationUser()
-            {
-                SecurityStamp = Guid.NewGuid().ToString()
-            };
-        }
-
         public async Task<string> GetFullName(string userName)
         {
             var user = await userManager.FindByNameAsync(userName);
             return user.FullName;
         }
 
-        public async Task<(bool, ApplicationUser)> TryLoginAsync(string userName, string password)
+        public async Task<bool> LoginAsync(string userName, string password)
         {
             var user = await userManager.FindByNameAsync(userName);
-            if (user is null) return (false, null);
-
-            var checkPassword = await userManager.CheckPasswordAsync(user, password);
-            return (checkPassword, user);
+            return user is not null && await userManager.CheckPasswordAsync(user, password);
         }
 
         //TODO: Make another component for seeding

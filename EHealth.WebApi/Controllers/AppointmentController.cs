@@ -16,9 +16,9 @@ namespace EHealth.WebApi.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService appointmentService;
-        private readonly IIdentityService<ApplicationUser> identityService;
+        private readonly IIdentityService<IAuthorizable> identityService;
 
-        public AppointmentController(IAppointmentService appointmentService, IIdentityService<ApplicationUser> identityService)
+        public AppointmentController(IAppointmentService appointmentService, IIdentityService<IAuthorizable> identityService)
         {
             this.appointmentService = appointmentService;
             this.identityService = identityService;
@@ -30,7 +30,9 @@ namespace EHealth.WebApi.Controllers
         {
             var patientName = await identityService.GetFullName(User.Identity.Name);
             var history = await appointmentService.GetHistoryForPatientAsync(patientName);
-            return history.Select(h => h.ToViewModel());
+            var historyViewModel = history.Select(h => h.ToViewModel());
+
+            return historyViewModel;
         }
 
         [HttpPost]
@@ -38,7 +40,9 @@ namespace EHealth.WebApi.Controllers
         public async Task<bool> Schedule(AppointmentViewModel scheduleViewModel)
         {
             var patientName = await identityService.GetFullName(User.Identity.Name);
-            var isScheduled = await appointmentService.ScheduleAppointmentAsync(scheduleViewModel.ToModel(patientName));
+            var appointmentModel = scheduleViewModel.ToModel(patientName);
+            var isScheduled = await appointmentService.ScheduleAppointmentAsync(appointmentModel);
+
             return isScheduled;
         }
     }

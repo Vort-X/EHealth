@@ -10,9 +10,9 @@ namespace EHealth.WebApi.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IIdentityService<ApplicationUser> identityService;
+        private readonly IIdentityService<IAuthorizable> identityService;
 
-        public AuthenticationController(IIdentityService<ApplicationUser> identityService)
+        public AuthenticationController(IIdentityService<IAuthorizable> identityService)
         {
             this.identityService = identityService;
         }
@@ -21,13 +21,13 @@ namespace EHealth.WebApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            var (loggedIn, user) = await identityService.TryLoginAsync(model.UserName, model.Password);
+            var loggedIn = await identityService.LoginAsync(model.UserName, model.Password);
             if (!loggedIn)
             {
                 return Ok(new { error = "Login failed: Incorrect login or password" });
             }
+            var token = await identityService.GenerateTokenAsync(model.UserName);
 
-            var token = await identityService.GenerateTokenAsync(user);
             return Ok(new { token });
         }
 
@@ -35,10 +35,12 @@ namespace EHealth.WebApi.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
-            var user = await identityService.GenerateUserAsync();
-            user.UserName = model.UserName;
-            user.FullName = model.FullName;
-            var userAdded = await identityService.CreateUserAsync(user, model.Password);
+            var userAdded = await identityService.RegisterAsync(user => 
+            {
+                user.UserName = model.UserName;
+                user.FullName = model.FullName;
+            }, 
+            model.Password);
 
             return userAdded ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
