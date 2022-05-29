@@ -19,7 +19,7 @@ namespace EHealth.Services.Default
         public async Task<DoctorModel> GetDoctorAsync(int id)
         {
             var entity = await unitOfWork.DoctorRepository.Get(id);
-            return entity is null ? new() : new()
+            return entity is null ? null : new()
             {
                 Id = entity.Id,
                 FullName = entity.FullName,

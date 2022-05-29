@@ -34,7 +34,7 @@ namespace EHealth.WebApi.Controllers
         public async Task<DoctorViewModel> GetDoctor(int id)
         {
             var doctor = await doctorsService.GetDoctorAsync(id);
-            return doctor.ToViewModel();
+            return doctor?.ToViewModel();
         }
     }
 }
