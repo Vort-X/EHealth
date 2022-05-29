@@ -1,3 +1,4 @@
+using EHealth.DataAccess;
 using EHealth.Identity;
 using EHealth.Identity.Default;
 using EHealth.Services;
@@ -63,6 +64,8 @@ namespace EHealth.WebApi
 
             services.AddScoped<IDoctorsService, DefaultDoctorsService>();
             services.AddScoped<IAppointmentService, DefaultAppointmentService>();
+            services.AddScoped<IUnitOfWork, DefaultUnitOfWork>();
+            services.AddDbContext<EHealthDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EntityContext")));
 
             services.AddSwaggerGen(c =>
             {

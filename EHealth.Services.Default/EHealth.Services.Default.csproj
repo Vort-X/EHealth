@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EHealth.Model\EHealth.Model.csproj" />
+    <ProjectReference Include="..\EHealth.DataAccess\EHealth.DataAccess.csproj" />
     <ProjectReference Include="..\EHealth.Services\EHealth.Services.csproj" />
   </ItemGroup>
 
