@@ -10,6 +10,6 @@ namespace EHealth.DataAccess
         Task<TEntity> Get(TKey key);
         Task<IEnumerable<TEntity>> GetAll();
         Task Remove(TKey key);
-        Task Update(TEntity entity);
+        Task Update(TKey key, Action<TEntity> setFields);
     }
 }

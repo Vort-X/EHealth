@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>EHealth.DataAccess</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EHealth.DataAccess\EHealth.DataAccess.csproj" />
-    <ProjectReference Include="..\EHealth.Services\EHealth.Services.csproj" />
+    <ProjectReference Include="..\EHealth.Entity\EHealth.Entity.csproj" />
   </ItemGroup>
 
 </Project>

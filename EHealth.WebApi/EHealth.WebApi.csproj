@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EHealth.DataAccess.Default\EHealth.DataAccess.Default.csproj" />
     <ProjectReference Include="..\EHealth.Identity.Default\EHealth.Identity.Default.csproj" />
     <ProjectReference Include="..\EHealth.Identity\EHealth.Identity.csproj" />
     <ProjectReference Include="..\EHealth.Services.Default\EHealth.Services.Default.csproj" />

@@ -6,7 +6,7 @@ namespace EHealth.Entity.Extentions
     {
         public static DateTime AsSchedule(DateTime input)
         {
-            return new(0, input.Month, input.Day, input.Hour, input.Minute, 0);
+            return new(input.Year, input.Month, input.Day, input.Hour, input.Minute, 0);
         }
     }
 }

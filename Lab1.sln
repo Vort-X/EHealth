@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHealth.DataAccess", "EHeal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHealth.Entity", "EHealth.Entity\EHealth.Entity.csproj", "{585EEC2D-6457-42DE-8CFD-8C68C58074CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHealth.DataAccess.Default", "EHealth.DataAccess.Default\EHealth.DataAccess.Default.csproj", "{B6D3A3F4-C7C5-4E4B-8263-53B4C79E10E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{585EEC2D-6457-42DE-8CFD-8C68C58074CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{585EEC2D-6457-42DE-8CFD-8C68C58074CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{585EEC2D-6457-42DE-8CFD-8C68C58074CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D3A3F4-C7C5-4E4B-8263-53B4C79E10E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D3A3F4-C7C5-4E4B-8263-53B4C79E10E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D3A3F4-C7C5-4E4B-8263-53B4C79E10E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D3A3F4-C7C5-4E4B-8263-53B4C79E10E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

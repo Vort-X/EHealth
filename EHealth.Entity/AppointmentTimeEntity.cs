@@ -13,5 +13,7 @@ namespace EHealth.Entity
             get => availableTime; 
             set => availableTime = Appointment.AsSchedule(value); 
         }
+        public DoctorEntity[] AvailableDoctors { get; set; }
+        public HistoryEntity[] ScheduledAppointsment { get; set; }
     }
 }
