@@ -10,6 +10,7 @@ namespace EHealth.DataAccess
         IRepository<DoctorEntity, int> DoctorRepository { get; }
         IRepository<HistoryEntity, int> HistoryRepository { get; }
         IRepository<OccupationEntity, int> OccupationRepository { get; }
+        IRepository<StatusEntity, int> StatusRepository { get; }
 
         Task SaveChangesAsync();
     }

@@ -8,7 +8,8 @@
         public DoctorEntity Doctor { get; set; }
         public int AppointmentTimeEntityId { get; set; }
         public AppointmentTimeEntity AppointmentDateTime { get; set; }
-        public string Status { get; set; }
+        public int StatusId { get; set; }
+        public StatusEntity Status { get; set; }
         public string Diagnosis { get; set; }
     }
 }

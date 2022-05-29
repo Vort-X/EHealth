@@ -22,6 +22,8 @@ namespace EHealth.DataAccess
 
         public IRepository<OccupationEntity, int> OccupationRepository => new DefaultRepository<OccupationEntity, int>(context);
 
+        public IRepository<StatusEntity, int> StatusRepository => new DefaultRepository<StatusEntity, int>(context);
+
         public async Task SaveChangesAsync()
         {
             await context.SaveChangesAsync();

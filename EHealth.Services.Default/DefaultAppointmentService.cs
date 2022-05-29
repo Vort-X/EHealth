@@ -11,11 +11,15 @@ namespace EHealth.Services.Default
 {
     public class DefaultAppointmentService : IAppointmentService
     {
+        private const string pendingStatus = "Pending";
+
         private readonly IUnitOfWork unitOfWork;
+        private readonly int pendingStatusId;
 
         public DefaultAppointmentService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+            pendingStatusId = unitOfWork.StatusRepository.GetAll().Result.Single(s => s.Name == pendingStatus).Id;
         }
 
         public async Task<IEnumerable<HistoryModel>> GetHistoryForPatientAsync(string patientFullName)
@@ -27,7 +31,7 @@ namespace EHealth.Services.Default
                     PatientFullName = entity.PatientFullName,
                     DoctorFullName = entity.Doctor.FullName,
                     AppointmentDateTime = entity.AppointmentDateTime.AvailableTime,
-                    Status = entity.Status,
+                    Status = entity.Status.Name,
                     Diagnosis = entity.Diagnosis
                 });
         }
@@ -38,7 +42,7 @@ namespace EHealth.Services.Default
             {
                 PatientFullName = appointmentModel.PatientFullName,
                 DoctorId = appointmentModel.DoctorId,
-                Status = "Pending"
+                StatusId = pendingStatusId
             };
             var creation = unitOfWork.HistoryRepository.Create(model);
             await creation;
