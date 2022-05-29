@@ -22,12 +22,12 @@ namespace EHealth.DataAccess
             await context.AddAsync(entity);
         }
 
-        public async Task<TEntity> Get(TKey key)
+        public virtual async Task<TEntity> Get(TKey key)
         {
             return await context.FindAsync<TEntity>(key);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
             return await Task.FromResult(context.Set<TEntity>().AsEnumerable());
         }

@@ -40,7 +40,7 @@ namespace EHealth.WebApi.Controllers
                 user.UserName = model.UserName;
                 user.FullName = model.FullName;
             }, 
-            model.Password);
+            model.Password, UserRoles.User);
 
             return userAdded ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }

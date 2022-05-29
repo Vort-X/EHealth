@@ -7,6 +7,21 @@ namespace EHealth.Services
 {
     public class StubAppointmentService : IAppointmentService
     {
+        public Task AddAppointmentTimeToDoctorAsync(string doctorFullName, DateTime dateTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> CompleteAppointmentAsync(int id, int status, string diagnosis = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<HistoryModel>> GetHistoryForDoctorAsync(string doctorFullName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<HistoryModel>> GetHistoryForPatientAsync(string patientFullName)
         {
             return await Task.FromResult(new List<HistoryModel>()
@@ -29,9 +44,19 @@ namespace EHealth.Services
             });
         }
 
+        public Task<IEnumerable<KeyValuePair<int, string>>> GetStatuses()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> ScheduleAppointmentAsync(AppointmentModel appointmentModel)
         {
             return await Task.FromResult(true);
+        }
+
+        public Task<bool> ScheduleAppointmentAsync(string patientName, int doctorId, int appointmentTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

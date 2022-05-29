@@ -2,7 +2,6 @@ using EHealth.DataAccess;
 using EHealth.Identity;
 using EHealth.Identity.Default;
 using EHealth.Services;
-using EHealth.Services.Default;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,12 +63,35 @@ namespace EHealth.WebApi
 
             services.AddScoped<IDoctorsService, DefaultDoctorsService>();
             services.AddScoped<IAppointmentService, DefaultAppointmentService>();
+            services.AddScoped<IAdminService, DefaultAdminService>();
             services.AddScoped<IUnitOfWork, DefaultUnitOfWork>();
             services.AddDbContext<EHealthDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EntityContext")));
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EHealth.WebApi", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new() 
+                { 
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
             });
         }
 

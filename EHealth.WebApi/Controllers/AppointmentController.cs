@@ -35,13 +35,24 @@ namespace EHealth.WebApi.Controllers
             return historyViewModel;
         }
 
+        [HttpGet]
+        [Route("get-statuses")]
+        [AllowAnonymous]
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetStatuses()
+        {
+            return await appointmentService.GetStatuses();
+        }
+
         [HttpPost]
         [Route("schedule")]
         public async Task<bool> Schedule(AppointmentViewModel scheduleViewModel)
         {
             var patientName = await identityService.GetFullName(User?.Identity?.Name);
-            var appointmentModel = scheduleViewModel.ToModel(patientName);
-            var isScheduled = await appointmentService.ScheduleAppointmentAsync(appointmentModel);
+            var isScheduled = await appointmentService.ScheduleAppointmentAsync(
+                patientName: patientName, 
+                doctorId: scheduleViewModel.DoctorId, 
+                appointmentTime: scheduleViewModel.AppointmentTimeId
+            );
 
             return isScheduled;
         }

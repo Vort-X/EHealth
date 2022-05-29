@@ -8,5 +8,6 @@ namespace EHealth.Services
     {
         Task<DoctorModel> GetDoctorAsync(int id);
         Task<IEnumerable<DoctorModel>> GetDoctorsListAsync();
+        Task<IEnumerable<KeyValuePair<int, string>>> GetOccupations();
     }
 }

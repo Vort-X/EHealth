@@ -36,5 +36,12 @@ namespace EHealth.WebApi.Controllers
             var doctor = await doctorsService.GetDoctorAsync(id);
             return doctor?.ToViewModel();
         }
+
+        [HttpGet]
+        [Route("get-occupations")]
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetOccupations()
+        {
+            return await doctorsService.GetOccupations();
+        }
     }
 }

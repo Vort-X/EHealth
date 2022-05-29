@@ -9,6 +9,7 @@ namespace EHealth.WebApi.Mappers
         {
             return new()
             {
+                Id = model.Id,
                 PatientFullName = model.PatientFullName,
                 DoctorFullName = model.DoctorFullName,
                 AppointmentDateTime = model.AppointmentDateTime,

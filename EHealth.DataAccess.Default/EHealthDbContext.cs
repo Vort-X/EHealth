@@ -23,7 +23,7 @@ namespace EHealth.DataAccess
 
             modelBuilder.Entity<DoctorEntity>().HasMany(d => d.Occupations).WithMany(o => o.Doctors);
             modelBuilder.Entity<DoctorEntity>().HasMany(d => d.AvailableAppointmentTime).WithMany(t => t.AvailableDoctors);
-            modelBuilder.Entity<HistoryEntity>().HasOne(h => h.AppointmentDateTime).WithMany(t => t.ScheduledAppointsment);
+            modelBuilder.Entity<HistoryEntity>().HasOne(h => h.AppointmentDateTime).WithMany();
             modelBuilder.Entity<HistoryEntity>().HasOne(h => h.Status).WithMany();
         }
     }

@@ -33,5 +33,10 @@ namespace EHealth.Services
         {
             return await Task.FromResult(true);
         }
+
+        public Task<bool> RegisterAsync(Action<IAuthorizable> setRegistration, string password, string role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

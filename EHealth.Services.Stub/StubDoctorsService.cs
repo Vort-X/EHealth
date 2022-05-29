@@ -14,12 +14,12 @@ namespace EHealth.Services
                 Id = 0,
                 FullName = "Vladimir H",
                 Occupations = new string[] { "Therapist", "Ph.D" },
-                AvailableAppointmentTime = new DateTime[]
-                    {
-                        new DateTime(2022, 07, 01, 13, 00, 00),
-                        new DateTime(2022, 07, 01, 15, 00, 00),
-                        new DateTime(2022, 07, 01, 17, 00, 00),
-                    }
+                AvailableAppointmentTime = new Dictionary<int, DateTime>()
+                {
+                    { 1, new DateTime(2022, 07, 01, 13, 00, 00) },
+                    { 2, new DateTime(2022, 07, 01, 15, 00, 00) },
+                    { 3, new DateTime(2022, 07, 01, 17, 00, 00) },
+                }
             });
         }
 
@@ -32,11 +32,11 @@ namespace EHealth.Services
                     Id = 0,
                     FullName = "Vladimir H",
                     Occupations = new string[] { "Therapist", "Ph.D" },
-                    AvailableAppointmentTime = new DateTime[] 
-                    { 
-                        new DateTime(2022, 07, 01, 13, 00, 00),
-                        new DateTime(2022, 07, 01, 15, 00, 00),
-                        new DateTime(2022, 07, 01, 17, 00, 00),
+                    AvailableAppointmentTime = new Dictionary<int, DateTime>()
+                    {
+                        { 1, new DateTime(2022, 07, 01, 13, 00, 00) },
+                        { 2, new DateTime(2022, 07, 01, 15, 00, 00) },
+                        { 3, new DateTime(2022, 07, 01, 17, 00, 00) },
                     }
                 },
                 new()
@@ -44,12 +44,12 @@ namespace EHealth.Services
                     Id = 1,
                     FullName = "Robert D",
                     Occupations = new string[] { "Psychologist", "Neurologist" },
-                    AvailableAppointmentTime = new DateTime[]
+                    AvailableAppointmentTime = new Dictionary<int, DateTime>()
                     {
-                        new DateTime(2022, 07, 01, 17, 00, 00),
-                        new DateTime(2022, 07, 01, 17, 30, 00),
-                        new DateTime(2022, 07, 01, 18, 00, 00),
-                        new DateTime(2022, 07, 01, 18, 30, 00),
+                        { 3, new DateTime(2022, 07, 01, 17, 00, 00) },
+                        { 4, new DateTime(2022, 07, 01, 17, 30, 00) },
+                        { 5, new DateTime(2022, 07, 01, 18, 00, 00) },
+                        { 6, new DateTime(2022, 07, 01, 18, 30, 00) },
                     }
                 },
                 new()
@@ -57,14 +57,19 @@ namespace EHealth.Services
                     Id = 2,
                     FullName = "Ivan K",
                     Occupations = new string[] { "Therapist" },
-                    AvailableAppointmentTime = new DateTime[]
+                    AvailableAppointmentTime = new Dictionary<int, DateTime>()
                     {
-                        new DateTime(2022, 07, 02, 13, 00, 00),
-                        new DateTime(2022, 07, 02, 15, 00, 00),
-                        new DateTime(2022, 07, 02, 17, 00, 00),
+                        { 7, new DateTime(2022, 07, 02, 13, 00, 00) },
+                        { 8, new DateTime(2022, 07, 02, 15, 00, 00) },
+                        { 9, new DateTime(2022, 07, 02, 17, 00, 00) },
                     }
                 }
             });
+        }
+
+        public Task<IEnumerable<KeyValuePair<int, string>>> GetOccupations()
+        {
+            throw new NotImplementedException();
         }
     }
 }

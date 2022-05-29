@@ -1,5 +1,6 @@
 ﻿using EHealth.Entity.Extentions;
 using System;
+using System.Collections.Generic;
 
 namespace EHealth.Entity
 {
@@ -13,7 +14,6 @@ namespace EHealth.Entity
             get => availableTime; 
             set => availableTime = Appointment.AsSchedule(value); 
         }
-        public DoctorEntity[] AvailableDoctors { get; set; }
-        public HistoryEntity[] ScheduledAppointsment { get; set; }
+        public List<DoctorEntity> AvailableDoctors { get; set; }
     }
 }

@@ -50,7 +50,7 @@ namespace EHealth.WebApi.Testing
             AppointmentViewModel viewModel = new()
             {
                 DoctorId = default,
-                AppointmentDateTime = default
+                AppointmentTimeId = default
             };
             bool isScheduled;
 

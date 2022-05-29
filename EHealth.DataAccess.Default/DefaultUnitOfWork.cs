@@ -16,9 +16,9 @@ namespace EHealth.DataAccess
 
         public IRepository<AppointmentTimeEntity, int> AppointmentTimeRepository => new DefaultRepository<AppointmentTimeEntity, int>(context);
 
-        public IRepository<DoctorEntity, int> DoctorRepository => new DefaultRepository<DoctorEntity, int>(context);
+        public IRepository<DoctorEntity, int> DoctorRepository => new DoctorRepository(context);
 
-        public IRepository<HistoryEntity, int> HistoryRepository => new DefaultRepository<HistoryEntity, int>(context);
+        public IRepository<HistoryEntity, int> HistoryRepository => new HistoryRepository(context);
 
         public IRepository<OccupationEntity, int> OccupationRepository => new DefaultRepository<OccupationEntity, int>(context);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EHealth.Model
 {
@@ -7,6 +8,6 @@ namespace EHealth.Model
         public int Id { get; set; }
         public string FullName { get; set; }
         public string[] Occupations { get; set; }
-        public DateTime[] AvailableAppointmentTime { get; set; }
+        public IEnumerable<KeyValuePair<int, DateTime>> AvailableAppointmentTime { get; set; }
     }
 }

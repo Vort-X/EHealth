@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EHealth.Services.Default
+namespace EHealth.Services
 {
     public class DefaultDoctorsService : IDoctorsService
     {
@@ -19,26 +19,30 @@ namespace EHealth.Services.Default
         public async Task<DoctorModel> GetDoctorAsync(int id)
         {
             var entity = await unitOfWork.DoctorRepository.Get(id);
-            return entity is null ? null : new()
-            {
-                Id = entity.Id,
-                FullName = entity.FullName,
-                Occupations = entity.Occupations.Select(o => o.Name).ToArray(),
-                AvailableAppointmentTime = entity.AvailableAppointmentTime.Select(t => t.AvailableTime).ToArray()
-            };
+            return entity is null ? null : ToModel(entity);
         }
 
         public async Task<IEnumerable<DoctorModel>> GetDoctorsListAsync()
         {
             var entities = await unitOfWork.DoctorRepository.GetAll();
-            await Task.CompletedTask;
-            return entities.Select(entity => new DoctorModel() 
+            return entities.Select(ToModel);
+        }
+
+        //TODO: Inject mappers
+        private static DoctorModel ToModel(Entity.DoctorEntity entity)
+        {
+            return new DoctorModel()
             {
                 Id = entity.Id,
                 FullName = entity.FullName,
                 Occupations = entity.Occupations.Select(o => o.Name).ToArray(),
-                AvailableAppointmentTime = entity.AvailableAppointmentTime.Select(t => t.AvailableTime).ToArray()
-            });
+                AvailableAppointmentTime = entity.AvailableAppointmentTime.ToDictionary(t => t.Id, t => t.AvailableTime)
+            };
+        }
+
+        public async Task<IEnumerable<KeyValuePair<int, string>>> GetOccupations()
+        {
+            return (await unitOfWork.OccupationRepository.GetAll()).ToDictionary(o => o.Id, o => o.Name);
         }
     }
 }

@@ -175,7 +175,7 @@ namespace EHealth.DataAccess.Migrations
             modelBuilder.Entity("EHealth.Entity.HistoryEntity", b =>
                 {
                     b.HasOne("EHealth.Entity.AppointmentTimeEntity", "AppointmentDateTime")
-                        .WithMany("ScheduledAppointsment")
+                        .WithMany()
                         .HasForeignKey("AppointmentTimeEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -197,11 +197,6 @@ namespace EHealth.DataAccess.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("EHealth.Entity.AppointmentTimeEntity", b =>
-                {
-                    b.Navigation("ScheduledAppointsment");
                 });
 #pragma warning restore 612, 618
         }

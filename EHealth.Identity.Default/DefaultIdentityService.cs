@@ -28,9 +28,7 @@ namespace EHealth.Identity.Default
             Seed().Wait();
         }
 
-        private const string defaultRole = UserRoles.User;
-
-        public async Task<bool> RegisterAsync(Action<ApplicationUser> setRegistration, string password)
+        public async Task<bool> RegisterAsync(Action<ApplicationUser> setRegistration, string password, string role)
         {
             ApplicationUser user = new()
             {
@@ -49,14 +47,14 @@ namespace EHealth.Identity.Default
                 return false;
             }
 
-            var roleExists = await EnsureRoleExistsAsync(defaultRole);
+            var roleExists = await EnsureRoleExistsAsync(role);
             if (!roleExists)
             {
                 await userManager.DeleteAsync(user);
                 return false;
             }
 
-            var addToRoleResult = await userManager.AddToRoleAsync(user, defaultRole);
+            var addToRoleResult = await userManager.AddToRoleAsync(user, role);
             if (!addToRoleResult.Succeeded)
             {
                 await userManager.DeleteAsync(user);
@@ -71,7 +69,7 @@ namespace EHealth.Identity.Default
             var roleExists = await roleManager.RoleExistsAsync(role);
             if (roleExists) return true;
 
-            var createResult = await roleManager.CreateAsync(new(defaultRole));
+            var createResult = await roleManager.CreateAsync(new(role));
             return createResult.Succeeded;
         }
 
@@ -84,14 +82,9 @@ namespace EHealth.Identity.Default
             }
 
             var authClaims = (await userManager.GetRolesAsync(user))
-                .Select(async ur => await roleManager.FindByNameAsync(ur))
-                .Select(async ir => await roleManager.GetClaimsAsync(await ir))
-                .SelectMany(cl => cl.Result)
-                .Union(new List<Claim>()
-                {
-                    new Claim(ClaimTypes.Name, userName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                });
+                .Select(r => new Claim(ClaimTypes.Role, r))
+                .Prepend(new Claim(ClaimTypes.Name, userName))
+                .Append(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
             //TODO: Inject ISecurityKeyProvider in ISecurityTokenProvider
             //Expected:
@@ -132,16 +125,11 @@ namespace EHealth.Identity.Default
         {
             if (isSeeded) return;
 
-            await InsertRole(UserRoles.Admin);
-            await InsertRole(UserRoles.User);
+            await EnsureRoleExistsAsync(UserRoles.Admin);
+            await EnsureRoleExistsAsync(UserRoles.Doctor);
+            await EnsureRoleExistsAsync(UserRoles.User);
 
             isSeeded = true;
-
-            async Task InsertRole(string roleName)
-            {
-                if (!await roleManager.RoleExistsAsync(roleName))
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
-            }
         }
     }
 }
